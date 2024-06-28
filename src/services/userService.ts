@@ -2,16 +2,27 @@ import userRepository from "../repositories/userRepository.js";
 
 export default class userService {
 
-    static getAll() {
+    static async getAll() {
 
-        return userRepository.getAll();
+        return await userRepository.getAll();
 
     }
 
+    static async insert(user: any) {
 
-    static insert(user: any) {
+        return await userRepository.insert(user);
 
-        return userRepository.insert(user);
+    }
+
+    static async update(id: any) {
+
+        return await userRepository.delete(id);
+
+    }
+
+    static async delete(id: any) {
+
+        return await userRepository.delete(id);
 
     }
 

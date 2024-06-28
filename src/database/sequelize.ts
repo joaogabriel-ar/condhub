@@ -1,32 +1,42 @@
 import { Sequelize } from "sequelize";
 
-const connection:Sequelize = new Sequelize({
+class Database {
 
-    database: "conhub",
-    username: "postgres",
-    password: "postgres",
-    host: "localhost",
-    port: 5432,
-    dialect: "postgres"
-});
-
-/**
- * Test database connection
- */
-export async function tryConnection() {
-
-    try {
-
-        await connection.authenticate();
+    private connection:Sequelize = new Sequelize({
+        database: "conhub",
+        username: "postgres",
+        password: "postgres",
+        host: "localhost",
+        port: 5432,
+        dialect: "postgres"
+    });
     
-    } catch (err:any) {
+    /**
+     * Test database connection
+     */
+    async tryDatabaseConnection() {
     
-        throw new Error(err.message);
+        try {
+    
+            await this.connection.authenticate();
+        
+        } catch (err:any) {
+        
+            throw new Error(err.message);
+        
+        }
     
     }
-
+    
+    /**
+     * Returns sequelize connection options
+     * @returns 
+     */
+    getDatabaseConnection() {
+    
+        return this.connection;
+    
+    }
 }
 
-export default {
-    tryConnection
-};
+export default Database;

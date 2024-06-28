@@ -3,22 +3,44 @@ import userService from "../services/userService.js";
 
 export default class userController {
 
-    static getAll(req: Request, res: Response, next: NextFunction) {
+    static async getAll(req: Request, res: Response, next: NextFunction) {
 
-        res.send(userService.getAll());
+        res.send(await userService.getAll());
     }
 
-    static insert(req: Request, res: Response, next: NextFunction) {
-        
+    static async insert(req: Request, res: Response, next: NextFunction) {
+
         let user = req.body;
 
-        if(!user.name || !user.email || !user.phone || !user.role_id || !user.active) {
+        if (!user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
             res.send("Erro, falha em alguma info.");
 
         }
 
-        res.send(userService.insert(user));
+        res.send(await userService.insert(user));
+    }
+
+    static async update(req: Request, res: Response, next: NextFunction) {
+
+        let user = req.body;
+
+        if (!user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
+
+            res.send("Erro, falha em alguma info.");
+
+        }
+
+        res.send(await userService.update(user));
+
+    }
+    
+    static async delete(req: Request, res: Response, next: NextFunction) {
+
+        let { id } = req.params;
+
+        res.send(await userService.delete(id));
+
     }
 
 }
