@@ -6,6 +6,7 @@ export default class userController {
     static async getAll(req: Request, res: Response, next: NextFunction) {
 
         res.send(await userService.getAll());
+
     }
 
     static async insert(req: Request, res: Response, next: NextFunction) {
@@ -14,30 +15,35 @@ export default class userController {
 
         if (!user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
-            res.send("Erro, falha em alguma info.");
+            res.send("Error. Missing information");
 
         }
-
+        
         res.send(await userService.insert(user));
+
     }
 
     static async update(req: Request, res: Response, next: NextFunction) {
 
         let user = req.body;
 
-        if (!user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
+        if (!user.id || !user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
-            res.send("Erro, falha em alguma info.");
+            return res.status(400).send("Error, missing information.")
 
         }
 
         res.send(await userService.update(user));
 
     }
-    
+
     static async delete(req: Request, res: Response, next: NextFunction) {
 
         let { id } = req.params;
+
+        if (!id) {
+            return res.status(400).send("Error, missing information.")
+        }
 
         res.send(await userService.delete(id));
 

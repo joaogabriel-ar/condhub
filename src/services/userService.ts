@@ -16,7 +16,7 @@ export default class userService {
 
     static async update(id: any) {
 
-        return await userRepository.delete(id);
+        return await userRepository.update(id);
 
     }
 

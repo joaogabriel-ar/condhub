@@ -7,7 +7,15 @@ const sequelize = database.getDatabaseConnection();
 export default class Role extends Model{};
 
 Role.init({
-    role: DataTypes.INTEGER
+    role: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+            len: [1,4]
+        }
+    }
 }, {
     sequelize,
     modelName: "roles"

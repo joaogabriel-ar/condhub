@@ -10,19 +10,40 @@ export default class User extends Model{};
 User.init({
     name: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+            len:[1,50],
+        }
     },
     email: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+            len:[1,100],
+            isEmail: true
+        }
     },
     phone: {
         type: DataTypes.STRING(20),
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+            len: [1,20],
+        }
     },
     active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+
+        }
     },
     profile_image: {
         type: DataTypes.STRING,
@@ -35,6 +56,9 @@ User.init({
             model: Role,
             key: "id",
             
+        },
+        validate: {
+            len: [1,4],
         }
     }
 
