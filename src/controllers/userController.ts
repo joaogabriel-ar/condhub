@@ -13,7 +13,7 @@ export default class userController {
 
         let user = req.body;
 
-        if (!user.name || !user.email || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
+        if (!user.name || !user.email || !user.password || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
             res.send("Error. Missing information");
 

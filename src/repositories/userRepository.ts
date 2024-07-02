@@ -30,7 +30,7 @@ export default class userRepository {
 
     }
 
-    static async insert(user: any) {
+    static async insert(user: any) {        
 
         try {
 
@@ -38,9 +38,8 @@ export default class userRepository {
 
         } catch (err: any) {
             
-
             if (err instanceof ValidationError) {
-
+                
                 const messages = err.errors.map(err => err.message);
 
                 return messages;

@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import Database from "../database/sequelize.js";
 import Role from "./Role.js";
+import bcrypt from "bcryptjs";
 
 const database = new Database();
 const sequelize = database.getDatabaseConnection();
@@ -26,6 +27,23 @@ User.init({
             len:[1,100],
             isEmail: true
         }
+    },
+    password: {
+        type:DataTypes.STRING(100),
+        allowNull:false,
+        validate: {
+            notEmpty: true,
+            notNull: true,
+            len:[1,100]
+        },
+        
+        set(password:any) {
+            
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(password, salt);
+            this.setDataValue('password', hash);
+        }
+
     },
     phone: {
         type: DataTypes.STRING(20),
@@ -59,6 +77,12 @@ User.init({
         },
         validate: {
             len: [1,4],
+            invalidNumber(role:number) {
+                if(role > 4 || role < 1) {
+                    throw new Error("Invalid role value");
+                }
+
+            }
         }
     }
 
