@@ -2,7 +2,7 @@ import Credentials from "../interfaces";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
-import SECRET_KEY from "../env.js";
+import { SECRET_KEY } from "../env.js";
 
 export default class authRepository {
 
