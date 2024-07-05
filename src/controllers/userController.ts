@@ -49,4 +49,10 @@ export default class userController {
 
     }
 
+    static async teste(req: Request, res: Response, next: NextFunction) {
+
+        res.send('<h1">oi joãozinho testando</h1>');
+
+    }
+
 }

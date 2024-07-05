@@ -8,7 +8,7 @@ import auth from "./middlewares/auth.js";
 const database = new Database();
 
 const app = express();
-const port = 8007;
+const port = 8000;
 
 app.use(express.json());
 app.use(cors());
@@ -22,6 +22,6 @@ app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
 
 })
 
-app.listen(port, "localhost", () => console.log(`listening to port ${port}`));
+app.listen(port, "0.0.0.0", () => console.log(`listening to port oi joã ${port}`));
 
 database.getDatabaseConnection();
