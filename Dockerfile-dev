@@ -17,15 +17,10 @@ RUN npm install -g typescript@4.5.4
 
 RUN npm uninstall @types/lodash
 RUN npm install @types/lodash@4.17.5
+
+# Install nodemon globally for development
 RUN npm install -g nodemon
 
-# Install nodemon globally (assuming it's needed for your development server)
+COPY bash.sh ./bash.sh
 
 EXPOSE 8000
-
-# Copy the rest of the application code
-
-# Expose the port your app runs on
-
-# Command to run your app using nodemon
-#CMD ["npm","start"]

@@ -22,6 +22,6 @@ app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
 
 })
 
-app.listen(port, "0.0.0.0", () => console.log(`listening to port oi joã ${port}`));
+app.listen(port, "0.0.0.0", () => console.log(`listening to port oi euripeszao ${port}`));
 
 database.getDatabaseConnection();
