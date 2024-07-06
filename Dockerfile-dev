@@ -23,4 +23,5 @@ RUN npm install -g nodemon
 
 COPY bash.sh ./bash.sh
 
-EXPOSE 8000
+EXPOSE 8080
+EXPOSE 5432
