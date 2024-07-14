@@ -11,7 +11,10 @@ export default class authController {
 
             if (!email || !password) {
 
-                res.status(404).send("Missing credentials");
+                res.status(404).json({
+                    status: "failed",
+                    error: "Missing credentials"
+                });
 
             }
 
@@ -25,16 +28,60 @@ export default class authController {
                 });
             }
 
-            return res.status(200).send(auth);
+            return res.status(200).json(auth);
 
         } catch (err: any) {
 
-            return res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({
+                status: "failed",
+                error: 'Internal Server Error'
+            });
 
         }
 
     }
 
+    static async verifyToken(req: Request, res: Response, next: NextFunction) {
 
+        const { token } = req.body;
+
+        if (!token) {
+
+            res.status(404).json({
+                status: "failed",
+                error: 'Missing token',
+            });
+        }
+
+        try {
+
+            let isValid = await authService.verifyToken({token});
+
+            if (!isValid) {
+
+                res.status(403).json({
+                    status: 'failed',
+                    error: 'Token is invalid'
+                });
+
+            }
+
+            res.status(200).json({
+                status: 'success',
+                valid: true,
+                token
+            });
+
+        } catch (err) {
+
+            return res.status(500).json({
+                status: "failed",
+                error: 'Internal Server Error',
+                valid: err
+            });
+
+        }
+
+    }
 
 }

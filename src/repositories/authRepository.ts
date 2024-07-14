@@ -1,4 +1,4 @@
-import Credentials from "../interfaces";
+import { Credentials, Token } from "../interfaces";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
@@ -27,7 +27,24 @@ export default class authRepository {
             user: {
                 id: user.id,
                 email: user.email,
+                name: user.name,
+                profile_picture: user.profile_picture
             }
+        }
+
+    }
+
+    static async verifyToken({ token }: Token) {
+
+        try {
+
+            jwt.verify(token, SECRET_KEY);
+            return true;
+            
+        } catch(err) {
+            
+            throw false
+
         }
 
     }

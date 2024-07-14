@@ -1,22 +1,22 @@
 version: '3.8'
 services:
   postgres:
-      image: postgres:14-bullseye
-      container_name: postgres
-      hostname: postgres
-      restart: unless-stopped
-      environment: 
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_USER: postgres
-        POSTGRES_DB: condhub
-        POSTGRES_PORT: 5432
-        PGDATA: /var/lib/postgresql/data
-      volumes:
-        - postgres_data:/var/lib/postgresql/data
-      ports:
-        - "5433:5432"
+    image: postgres:14-bullseye
+    container_name: postgres
+    hostname: postgres
+    restart: unless-stopped
+    environment: 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: condhub
+      POSTGRES_PORT: 5432
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
   app:
-    build:
+    build: 
       context: .
       dockerfile: Dockerfile-dev
     image: condhub

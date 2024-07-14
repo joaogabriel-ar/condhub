@@ -5,7 +5,7 @@ export default class userController {
 
     static async getAll(req: Request, res: Response, next: NextFunction) {
 
-        res.send(await userService.getAll());
+        res.status(200).send(await userService.getAll());
 
     }
 
@@ -15,11 +15,11 @@ export default class userController {
 
         if (!user.name || !user.email || !user.password || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
-            res.send("Error. Missing information");
+            res.status(400).send("Error. Missing information");
 
         }
         
-        res.send(await userService.insert(user));
+        res.status(200).send(await userService.insert(user));
 
     }
 
@@ -33,7 +33,7 @@ export default class userController {
 
         }
 
-        res.send(await userService.update(user));
+        res.status(200).send(await userService.update(user));
 
     }
 
@@ -45,13 +45,7 @@ export default class userController {
             return res.status(400).send("Error, missing information.")
         }
 
-        res.send(await userService.delete(id));
-
-    }
-
-    static async teste(req: Request, res: Response, next: NextFunction) {
-
-        res.send('<h1">oi joãozinho testando</h1>');
+        res.status(200).send(await userService.delete(id));
 
     }
 
