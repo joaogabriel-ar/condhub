@@ -8,12 +8,12 @@ export default class Role extends Model{};
 
 Role.init({
     role: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
             notEmpty: true,
             notNull: true,
-            len: [1,4]
+            len: [1,20],
         }
     }
 }, {
