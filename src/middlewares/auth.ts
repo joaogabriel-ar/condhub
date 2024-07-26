@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { SECRET_KEY } from "../env.js";
 import jwt from "jsonwebtoken";
 
-
 export default class auth {
 
     static async authenticate(req: Request, res: Response, next: NextFunction) {

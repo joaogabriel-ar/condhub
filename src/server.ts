@@ -16,11 +16,11 @@ app.use(cors());
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 
-app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
+// app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
 
-    res.json({text: "Protected ", userId: (req as any).userId});
+//     res.json({text: "Protected ", userId: (req as any).userId});
 
-});
+// });
 
 process.on('uncaughtException', (err) => {
     console.error('There was an uncaught error', err);
