@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { SECRET_KEY } from "../env.js";
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 export default class auth {
 
     static async authenticate(req: Request, res: Response, next: NextFunction) {
 
-        const token = req.headers['authorization'];
+        const token = req.headers['authorization'];        
 
         if (!token) {
 
@@ -26,6 +27,12 @@ export default class auth {
         });
 
     }
-}
 
+    static async checkIsAdmin(req: Request, res: Response, next: NextFunction) {
+        
+        let userId = (req as any).userId;
 
+        // let user = User.
+        
+    }
+} 

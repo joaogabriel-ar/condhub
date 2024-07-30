@@ -4,7 +4,7 @@ import userService from "../services/userService.js";
 export default class userController {
 
     static async getAll(req: Request, res: Response, next: NextFunction) {
-
+        
         res.status(200).send(await userService.getAll());
 
     }

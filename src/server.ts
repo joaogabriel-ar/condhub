@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import userRouter from "./routes/userRouter.js"
 import authRouter from "./routes/authRouter.js"
 import cors from "cors"
 import Database from "./database/sequelize.js";
-import auth from "./middlewares/auth.js";
+import buildingRouter from "./routes/buildingRouter.js"
 
 const database = new Database();
 
@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/users", userRouter);
+app.use("/buildings", buildingRouter);
 app.use("/auth", authRouter);
 
 // app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
