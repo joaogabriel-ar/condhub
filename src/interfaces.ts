@@ -9,7 +9,15 @@ interface Token {
 
 }
 
+interface checkedUser {
+
+    status?: string,
+    error?: string,
+    allowed:boolean
+}
+
 export {
     Credentials,
-    Token
+    Token,
+    checkedUser
 }
