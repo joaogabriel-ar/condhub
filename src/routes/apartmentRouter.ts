@@ -4,7 +4,7 @@ import apartmentController from "../controllers/apartmentController.js"
 
 const router = express.Router();
 
-// router.post('/', auth.authenticate, auth.checkIsAdmin, apartmentController.insert);
+router.post('/', apartmentController.insert);
 // router.put('/', auth.authenticate, auth.checkIsAdmin, apartmentController.update);
 // router.get('/', auth.authenticate, auth.checkIsAdmin, apartmentController.getAll);
 // router.delete('/:id', auth.authenticate, auth.checkIsAdmin, apartmentController.delete);

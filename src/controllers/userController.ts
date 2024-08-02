@@ -15,7 +15,7 @@ export default class userController {
 
         if (!user.name || !user.email || !user.password || !user.phone || !user.role_id || !user.hasOwnProperty("active")) {
 
-            res.status(400).send("Error. Missing information");
+           return res.status(400).send("Error. Missing information");
 
         }
         
@@ -42,6 +42,7 @@ export default class userController {
         let { id } = req.params;
 
         if (!id) {
+            
             return res.status(400).send("Error, missing information.")
         }
 

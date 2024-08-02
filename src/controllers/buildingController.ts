@@ -5,7 +5,7 @@ export default class buildingController {
 
     static async getAll(req: Request, res: Response, next: NextFunction) {
         
-        res.status(200).send(await buildingService.getAll());
+       return res.status(200).send(await buildingService.getAll());
 
     }
 
@@ -17,7 +17,7 @@ export default class buildingController {
 
             if (!building.name || !building.address || !building.cnpj || !building.syndic_id) {
 
-                res.status(400).send("Error. Missing information");
+               return res.status(400).send("Error. Missing information");
 
             }
 
@@ -43,7 +43,7 @@ export default class buildingController {
 
             if (!building.name || !building.address || !building.cnpj || !building.syndic_id) {
 
-                res.status(400).send("Error. Missing information");
+               return res.status(400).send("Error. Missing information");
 
             }
 
@@ -66,6 +66,7 @@ export default class buildingController {
         let { id } = req.params;
 
         if (!id) {
+
             return res.status(400).send("Error, missing information.")
         }
 

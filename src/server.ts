@@ -1,4 +1,5 @@
 import express from "express";
+import auth from "./middlewares/auth.js";
 import userRouter from "./routes/userRouter.js"
 import authRouter from "./routes/authRouter.js"
 import apartmentRouter from "./routes/apartmentRouter.js"
@@ -14,9 +15,18 @@ const port = 8080;
 app.use(express.json());
 app.use(cors());
 
-app.use("/users", userRouter);
-app.use("/buildings", buildingRouter);
-app.use("/apartments", apartmentRouter);
+app.use("/users", 
+    auth.authenticate, 
+    userRouter);
+
+app.use("/buildings", auth.authenticate,
+     auth.checkIsAdmin, 
+     buildingRouter);
+     
+app.use("/apartments", 
+    auth.authenticate, 
+    auth.checkIsSyndic,
+    apartmentRouter);
 
 app.use("/auth", authRouter);
 // app.get("/protected", auth.authenticate, (req:Request, res: Response, next) => {
