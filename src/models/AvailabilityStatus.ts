@@ -4,9 +4,9 @@ import Database from "../database/sequelize.js";
 const database = new Database();
 const sequelize = database.getDatabaseConnection();
 
-export default class Role extends Model{};
+export default class AvailabilityStatus extends Model{};
 
-Role.init({
+AvailabilityStatus.init({
     role: {
         type: DataTypes.STRING(20),
         allowNull: false,
@@ -18,7 +18,7 @@ Role.init({
     }
 }, {
     sequelize,
-    modelName: "roles",
+    modelName: "availability_status",
     createdAt: false,
     updatedAt: false
 });

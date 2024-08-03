@@ -1,3 +1,5 @@
+import { httpStatusEnum } from "../enums/httpStatusEnum.js";
+import User from "../models/User.js";
 import userRepository from "../repositories/userRepository.js";
 
 export default class userService {
@@ -21,6 +23,21 @@ export default class userService {
     }
 
     static async delete(id: any) {
+
+        let user = await User.findOne({
+            where: {
+                id
+            }
+        });        
+
+        if (!user) {            
+
+            throw {
+                status: httpStatusEnum.NOT_FOUND,
+                messages: "User not found"
+            }
+
+        }
 
         return await userRepository.delete(id);
 

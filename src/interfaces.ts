@@ -9,15 +9,22 @@ interface Token {
 
 }
 
-interface checkedUser {
+interface CheckedUser {
 
     status?: string,
     error?: string,
     allowed:boolean
 }
 
+interface ErrorMessage {
+
+    status: number,
+    messages: string | string[],
+}
+
 export {
     Credentials,
     Token,
-    checkedUser
+    CheckedUser,
+    ErrorMessage
 }

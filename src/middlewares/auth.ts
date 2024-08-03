@@ -3,7 +3,7 @@ import { SECRET_KEY } from "../env.js";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { RolesEnum } from "../enums/rolesEnum.js";
-import { checkedUser } from "../interfaces.js";
+import { CheckedUser } from "../interfaces.js";
 export default class auth {
 
     static async authenticate(req: Request, res: Response, next: NextFunction) {
@@ -37,7 +37,7 @@ export default class auth {
 
             let userId = (req as any).userId;
 
-            let checkedUser: checkedUser = await auth.checkUser(userId, [RolesEnum.ADMIN]);
+            let checkedUser: CheckedUser = await auth.checkUser(userId, [RolesEnum.ADMIN]);
 
             if (!checkedUser.allowed) {
 
@@ -63,7 +63,7 @@ export default class auth {
 
             let userId = (req as any).userId;
 
-            let checkedUser: checkedUser = await auth.checkUser(userId, [RolesEnum.ADMIN, RolesEnum.SYNDIC]);
+            let checkedUser: CheckedUser = await auth.checkUser(userId, [RolesEnum.ADMIN, RolesEnum.SYNDIC]);
 
             if (!checkedUser.allowed) {
 
@@ -90,7 +90,7 @@ export default class auth {
 
             let userId = (req as any).userId;
 
-            let checkedUser: checkedUser = await auth.checkUser(userId, [RolesEnum.ADMIN, RolesEnum.SYNDIC, RolesEnum.RESIDENT]);
+            let checkedUser: CheckedUser = await auth.checkUser(userId, [RolesEnum.ADMIN, RolesEnum.SYNDIC, RolesEnum.RESIDENT]);
 
             if (!checkedUser.allowed) {
 

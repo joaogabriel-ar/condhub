@@ -69,7 +69,7 @@ User.init({
     },
     role_id: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
             model: Role,
             key: "id",

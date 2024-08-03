@@ -1,32 +1,31 @@
 import { NextFunction, Request, Response } from "express";
-import buildingService from '../services/buildingService.js';
-import { ErrorMessage } from "../interfaces.js";
+import amenityService from "../services/amenityService.js";
 import { httpStatusEnum } from "../enums/httpStatusEnum.js";
+import { ErrorMessage } from "../interfaces.js";
 
-export default class buildingController {
+export default class amenityController {
 
     static async getAll(req: Request, res: Response, next: NextFunction) {
 
         try {
 
-            return res.status(200).send(await buildingService.getAll());
+            return res.status(httpStatusEnum.OK).send(await amenityService.getAll());
 
-        } catch (err:any) {
+        } catch (err: any) {
 
             return res.status(err.status).json(err);
 
         }
-        
 
     }
 
     static async insert(req: Request, res: Response, next: NextFunction) {
 
-        try {            
+        try {
 
-            let building = req.body;
+            let amenity = req.body;
 
-            if (!building.name || !building.address || !building.cnpj || !building.syndic_id) {
+            if (!amenity.name || !amenity.building_id || !amenity.description || !amenity.availability_status) {
 
                 let err: ErrorMessage = {
                     status: httpStatusEnum.BAD_REQUEST,
@@ -37,9 +36,9 @@ export default class buildingController {
 
             }
 
-            res.status(httpStatusEnum.OK).send(await buildingService.insert(building));
+            res.status(httpStatusEnum.OK).send(await amenityService.insert(amenity));
 
-        } catch (err:any) {          
+        } catch (err: any) {            
 
             return res.status(err.status).json(err);
 
@@ -51,9 +50,9 @@ export default class buildingController {
 
         try {
 
-            let building = req.body;            
+            let amenity = req.body;
 
-            if (!building.id || !building.name || !building.address || !building.cnpj || !building.syndic_id) {
+            if (!amenity.id || !amenity.name || !amenity.building_id || !amenity.description || !amenity.availability_status) {
 
                 let err: ErrorMessage = {
                     status: httpStatusEnum.BAD_REQUEST,
@@ -61,11 +60,12 @@ export default class buildingController {
                 }
 
                 throw err;
+
             }
 
-            res.status(httpStatusEnum.OK).send(await buildingService.update(building));
+            res.status(httpStatusEnum.OK).send(await amenityService.update(amenity));
 
-        } catch (err:any) {          
+        } catch (err: any) {
 
             return res.status(err.status).json(err);
 
@@ -78,25 +78,24 @@ export default class buildingController {
         try {
 
             let { id } = req.params;
-    
+
             if (!id) {
-    
+
                 let err: ErrorMessage = {
                     status: httpStatusEnum.BAD_REQUEST,
                     messages: "Missing Information"
                 }
-    
+
                 throw err;
             }
-    
-            return res.status(httpStatusEnum.OK).send(await buildingService.delete(id));
 
-        } catch (err:any) {
+            res.status(httpStatusEnum.OK).send(await amenityService.delete(id));
+
+        } catch (err: any) {
 
             return res.status(err.status).json(err);
 
         }
-
 
     }
 

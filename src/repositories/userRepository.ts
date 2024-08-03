@@ -1,5 +1,7 @@
 import { ValidationError } from "sequelize";
 import User from "../models/User.js";
+import { ErrorMessage } from "../interfaces.js";
+import { httpStatusEnum } from "../enums/httpStatusEnum.js";
 
 export default class userRepository {
 
@@ -8,6 +10,7 @@ export default class userRepository {
         try {
 
             let users = await User.findAll({
+                order: ['id'],
                 raw: true
             });
 
@@ -15,42 +18,23 @@ export default class userRepository {
 
         } catch (err: any) {
 
-            if (err instanceof ValidationError) {
-
-                const messages = err.errors.map(err => err.message);
-
-                return messages;
-
-            } else {
-
-                return err.message;
-            }
+            throw this.#buildError(err, "get all");
 
         }
 
     }
 
-    static async insert(user: any) {        
+    static async insert(user: any) {
 
         try {
 
             return await User.create(user);
 
         } catch (err: any) {
-            
-            if (err instanceof ValidationError) {
-                
-                const messages = err.errors.map(err => err.message);
 
-                return messages;
-
-            } else {
-
-                return err.message;
-            }
+            throw this.#buildError(err, "insert");
 
         }
-
 
     }
 
@@ -70,16 +54,7 @@ export default class userRepository {
 
         } catch (err: any) {
 
-            if (err instanceof ValidationError) {
-
-                const messages = err.errors.map(err => err.message);
-
-                return messages;
-
-            } else {
-
-                return err.message;
-            }
+            throw this.#buildError(err, "update");
 
         }
 
@@ -97,18 +72,33 @@ export default class userRepository {
 
         } catch (err: any) {
 
-            if (err instanceof ValidationError) {
-
-                const messages = err.errors.map(err => err.message);
-
-                return messages;
-
-            } else {
-
-                return err.message;
-            }
+            throw this.#buildError(err, "delete");
 
         }
+
+    }
+
+    static #buildError(err:any, operation:string) {        
+
+        if (err instanceof ValidationError) {            
+
+            const messages = err.errors.map(err => err.message);
+
+            let error: ErrorMessage = {
+                status: httpStatusEnum.INTERNAL_ERROR,
+                messages: messages
+            }
+
+            return error;
+
+        }
+
+        let error: ErrorMessage = {
+            status: httpStatusEnum.INTERNAL_ERROR,
+            messages: `Error to ${operation} data`
+        }
+
+        return error;
 
     }
 

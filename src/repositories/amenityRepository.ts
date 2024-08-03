@@ -1,20 +1,20 @@
 import { ValidationError } from "sequelize";
-import Apartment from "../models/Apartment.js";
+import Amenity from "../models/Amenity.js";
 import { ErrorMessage } from "../interfaces.js";
 import { httpStatusEnum } from "../enums/httpStatusEnum.js";
 
-export default class apartmentRepository {
+export default class amenityRepository {
 
     static async getAll() {
 
         try {
 
-            let apartments = await Apartment.findAll({
+            let amenities = await Amenity.findAll({
                 order: ['id'],
                 raw: true
             });
 
-            return apartments;
+            return amenities;
 
         } catch (err: any) {
 
@@ -24,36 +24,36 @@ export default class apartmentRepository {
 
     }
 
-    static async insert(aparment: any) {        
+    static async insert(amenity: any) {
 
         try {
 
-            return await Apartment.create(aparment);
+            return await Amenity.create(amenity);
 
         } catch (err: any) {
-            
+
             throw this.#buildError(err, "insert");
 
         }
 
     }
 
-    static async update(apartment: any) {        
+    static async update(amenity: any) {
 
         try {
 
-            await Apartment.update({
-                ...apartment
+            await Amenity.update({
+                ...amenity
             }, {
                 where: {
-                    id: apartment.id
+                    id: amenity.id
                 }
             });
 
-            return "Apartment updated successfully";
+            return "Amenity updated successfully";
 
         } catch (err: any) {
-            
+
             throw this.#buildError(err, "update");
 
         }
@@ -64,11 +64,11 @@ export default class apartmentRepository {
 
         try {
 
-            await Apartment.destroy({
+            await Amenity.destroy({
                 where: { id }
             });
 
-            return "Apartment deleted successfully";
+            return "Amenity deleted successfully";
 
         } catch (err: any) {
 
