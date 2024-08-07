@@ -85,7 +85,7 @@ export default class userRepository {
             const messages = err.errors.map(err => err.message);
 
             let error: ErrorMessage = {
-                status: httpStatusEnum.INTERNAL_ERROR,
+                status: httpStatusEnum.BAD_REQUEST,
                 messages: messages
             }
 

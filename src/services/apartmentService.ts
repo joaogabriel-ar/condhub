@@ -1,6 +1,5 @@
 import { httpStatusEnum } from "../enums/httpStatusEnum.js";
 import { RolesEnum } from "../enums/rolesEnum.js";
-import { ErrorMessage } from "../interfaces.js";
 import Apartment from "../models/Apartment.js";
 import Building from "../models/Building.js";
 import User from "../models/User.js";
@@ -137,11 +136,7 @@ export default class apartmentService {
             }
         });
 
-        if (!apartment) {
-            return false;
-        }
-
-        return true;
+        return !!apartment;
 
     }
 
@@ -154,13 +149,7 @@ export default class apartmentService {
             }
         });
 
-        if (!building) {
-
-            return false;
-
-        }
-
-        return true;
+       return !!building;
 
     }
 
@@ -178,14 +167,7 @@ export default class apartmentService {
 
     static #userIsAllowed(roleId: any): boolean {
 
-        if (![RolesEnum.ADMIN, RolesEnum.RESIDENT, RolesEnum.SYNDIC].includes(roleId)) {
-
-            return false;
-
-        }
-
-        return true
-
+        return [RolesEnum.ADMIN, RolesEnum.RESIDENT, RolesEnum.SYNDIC].includes(roleId)
     }
 
 }

@@ -1,20 +1,21 @@
 import { ValidationError } from "sequelize";
-import Building from "../models/Building.js";
+import AmenityReservation from "../models/AmenityReservation.js";
 import { ErrorMessage } from "../interfaces.js";
 import { httpStatusEnum } from "../enums/httpStatusEnum.js";
+import { reservationStatusEnum } from "../enums/reservationStatusEnum.js";
 
-export default class buildingRepository {
+export default class amenityReservationRepository {
 
     static async getAll() {
 
         try {
 
-            let buildings = await Building.findAll({
+            let amenities = await AmenityReservation.findAll({
                 order: ['id'],
                 raw: true
-            });            
+            });
 
-            return buildings;
+            return amenities;
 
         } catch (err: any) {
 
@@ -24,36 +25,38 @@ export default class buildingRepository {
 
     }
 
-    static async insert(building: any) {        
+    static async insert(amenityReservation: any) {
 
         try {
 
-            return await Building.create(building);
+            amenityReservation.reservation_status = reservationStatusEnum.PENDING;
+
+            return await AmenityReservation.create(amenityReservation);
 
         } catch (err: any) {
-            
+
             throw this.#buildError(err, "insert");
 
         }
 
     }
-    
-    static async update(building: any) {        
+
+    static async update(amenityReservation: any) {
 
         try {
 
-            await Building.update({
-                ...building
+            await AmenityReservation.update({
+                ...amenityReservation
             }, {
                 where: {
-                    id: building.id
+                    id: amenityReservation.id
                 }
             });
 
-            return "Building updated successfully";
+            return "AmenityReservation updated successfully";
 
         } catch (err: any) {
-            
+
             throw this.#buildError(err, "update");
 
         }
@@ -64,11 +67,11 @@ export default class buildingRepository {
 
         try {
 
-            await Building.destroy({
+            await AmenityReservation.destroy({
                 where: { id }
             });
 
-            return "Building deleted successfully";
+            return "Amenity Reservation deleted successfully";
 
         } catch (err: any) {
 
@@ -101,4 +104,5 @@ export default class buildingRepository {
         return error;
 
     }
+
 }

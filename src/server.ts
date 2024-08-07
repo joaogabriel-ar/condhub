@@ -5,8 +5,10 @@ import authRouter from "./routes/authRouter.js"
 import apartmentRouter from "./routes/apartmentRouter.js"
 import amenityRouter from "./routes/amenityRouter.js"
 import buildingRouter from "./routes/buildingRouter.js"
+import amenityReservationRouter from "./routes/amenityReservationRouter.js"
 import cors from "cors"
 import Database from "./database/sequelize.js";
+
 
 const database = new Database();
 
@@ -34,6 +36,11 @@ app.use("/amenities",
     auth.authenticate,
     auth.checkIsSyndic,
     amenityRouter);
+
+app.use("/amenity/reservations",
+    auth.authenticate,
+    auth.checkIsSyndic,
+    amenityReservationRouter);
 
 app.use("/auth", authRouter);
 
